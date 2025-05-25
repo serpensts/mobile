@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ты меня любишь?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #eef;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .modal {
+      background: white;
+      padding: 30px 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+    }
+
+    .buttons {
+      margin-top: 30px;
+      height: 180px;
+      position: relative;
+    }
+
+    button {
+      padding: 16px 32px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      position: absolute;
+      transition: all 0.01s ease;
+    }
+
+    #yesBtn {
+      background: #4caf50;
+      color: white;
+      left: 30px;
+      top: 20px;
+    }
+
+    #noBtn {
+      background: #f44336;
+      color: white;
+      left: 180px;
+      top: 60px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="modal">
+  <h2>Ești Păduchi? ❤️</h2>
+  <div class="buttons">
+    <button id="yesBtn">Да</button>
+    <button id="noBtn">Нет</button>
+  </div>
+</div>
+
+<script>
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const container = document.querySelector(".buttons");
+
+  function moveNoBtn() {
+    const maxX = container.clientWidth - noBtn.offsetWidth;
+    const maxY = container.clientHeight - noBtn.offsetHeight;
+    const newX = Math.random() * maxX;
+    const newY = Math.random() * maxY;
+
+    noBtn.style.left = `${newX}px`;
+    noBtn.style.top = `${newY}px`;
+  }
+
+  // ловим прикосновение к кнопке «Нет»
+  noBtn.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    moveNoBtn();
+  });
+
+  // а также мышь — если на компьютере
+  container.addEventListener("mousemove", (e) => {
+    const btnRect = noBtn.getBoundingClientRect();
+    const btnX = btnRect.left + btnRect.width / 2;
+    const btnY = btnRect.top + btnRect.height / 2;
+    const distance = Math.hypot(e.clientX - btnX, e.clientY - btnY);
+    if (distance < 80) moveNoBtn();
+  });
+
+  yesBtn.addEventListener("click", () => {
+    alert("Vezi singur că ești păduchi! 💖");
+  });
+</script>
+
+</body>
+</html>
